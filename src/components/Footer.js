@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import { useGlobalStore } from '../stores/globalStore'
 
 const FooterDiv = styled.footer`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: ${props => props.background};
     color: white;
     padding: 1.5vw 6vw;
+    z-index: 1;
     .info-section{
         display: flex;
         align-items: center;
