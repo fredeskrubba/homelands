@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {ReactComponent as HeartIcon} from "../assets/icons/heart-icon.svg"
 
 
 const Card = styled.article`
@@ -11,9 +12,16 @@ const Card = styled.article`
     p{
         margin: 0;
     }
-    h2{
-        font-weight: 400;
+    .upper-info{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h2{
+            font-weight: 400;
+        }
+
     }
+    
     .info{
         .address{
             display: flex;
@@ -29,11 +37,15 @@ const Card = styled.article`
     }
     
 `
-const HouseCard = ({img, alt, price, city, zip, type, rooms, address, size}) => {
+const HouseCard = ({img, alt, price, city, zip, type, rooms, address, size, likeable}) => {
   return (
     <Card>
         <img src={img} alt={alt} />
-        <h2>{address}</h2>
+        <div className="upper-info">
+            <h2>{address}</h2>
+            {likeable && <HeartIcon/>}
+            
+        </div>
         <section className='info'>
             <div className='address'>
                 <p>{zip}</p>
