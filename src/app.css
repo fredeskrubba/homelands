@@ -2,10 +2,22 @@ body{
     padding: 0;
     margin: 0;
     box-sizing: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+nav{
+    font-family: "Odiebee";
+}
+
+footer h2{
+    font-family: "Odiebee";
+}
 
 @font-face {
     font-family: "Odiebee";
     src: url("./assets/fonts/OdibeeSans-Regular.ttf");
+}
+@font-face {
+    font-family: "Trebuchet";
+    src: url("./assets/fonts/trebuc.woff");
 }

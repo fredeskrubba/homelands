@@ -14,7 +14,7 @@ const FooterDiv = styled.footer`
     .info-section{
         display: flex;
         align-items: center;
-        gap: 4vw;
+        gap: 8vw;
         p{
             margin: 0;
         }
