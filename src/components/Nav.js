@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'wouter'
 import { useGlobalStore } from '../stores/globalStore'
 import {ReactComponent as SearchIcon} from "../assets/icons/search-icon.svg"
+import { useRoute } from 'wouter'
 
 const Navbar = styled.nav`
     font-size: 1vw;
@@ -92,26 +93,34 @@ const Navbar = styled.nav`
     
     
 `
+const ActiveLink = props => {
+    const [isActive] = useRoute(props.href);
+    return (
+      <Link {...props}>
+        <a className={isActive ? "active" : ""}>{props.children}</a>
+      </Link>
+    );
+  };
 
 const Nav = () => {
     const colors = useGlobalStore((state)=> state.colors)  
-    const [active, setActive] = useState(false)
+    
   return (
     <Navbar background={colors.black} logoBackground={colors.brown}>
         <div className='nav-container'>
             <Link href="/">
-                <a className='logo'>Homelands</a>
+                <a>Homelands</a>
             </Link> 
             <section>
-                <Link href="/">
-                    <a className='active'>Forside</a>
-                </Link>
-                <Link href="/listings">
-                    <a>Boliger til salg</a>
-                </Link>
-                <Link href="/login">
-                    <a>Login</a>
-                </Link>
+                <ActiveLink href="/">
+                    Forside
+                </ActiveLink>
+                <ActiveLink href="/listings">
+                    Boliger til salg
+                </ActiveLink>
+                <ActiveLink href="/login">
+                    Login
+                </ActiveLink>
                 <div className='searchbar'>
                     <input type="text" placeholder='Indtast søgeord'/>
                     <SearchIcon className='search-icon'/>
