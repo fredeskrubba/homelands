@@ -18,15 +18,9 @@ const Navbar = styled.nav`
         font-size: 4vw;
         position: absolute;
         top: 1vw;
-        .logo-background{
-            padding: 2vw 6.7vw;
-            z-index: -1;
-            position: absolute;
-            left: -1vw;
-            top: 0.2vw;
-            border: 2px solid ${props => props.background};
-            background-color: ${props => props.logoBackground};
-        }
+        background-color: ${props => props.logoBackground};
+        border: solid 2px black;
+        padding: 1vw;
     }
     a{
         text-decoration: none;
@@ -57,12 +51,12 @@ const Nav = () => {
 
   return (
     <Navbar background={colors.black} logoBackground={colors.brown}>
-        <section className='logo'>
-            <div className='logo-background'></div>
+        
+            
             <Link href="/">
-                <a>Homelands</a>
+                <a className='logo'>Homelands</a>
             </Link> 
-        </section>
+        
         
         <section>
             <Link href="/">
