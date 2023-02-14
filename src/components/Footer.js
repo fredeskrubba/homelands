@@ -1,9 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGlobalStore } from '../stores/globalStore'
+import {ReactComponent as TwitterIcon} from "../assets/icons/twitter-icon.svg"
+import {ReactComponent as FacebookIcon} from "../assets/icons/facebook-logo.svg"
 
 const FooterDiv = styled.footer`
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     bottom: 0;
     left: 0;
     right: 0;
@@ -23,6 +27,11 @@ const FooterDiv = styled.footer`
             margin: 0;
         }
     }
+    .socials{
+        display: flex;
+        gap: 1vw;
+        align-items: center;
+    }
 `
 
 const Footer = () => {
@@ -39,7 +48,10 @@ const Footer = () => {
                 <p>Email: info@homelands.dk</p>
                 <p>Telefon: +45 1122 3344 </p>
             </section>
-
+        </div>
+        <div className='socials'>
+            <TwitterIcon/>
+            <FacebookIcon/>
         </div>
     </FooterDiv>
   )

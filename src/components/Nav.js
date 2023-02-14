@@ -109,7 +109,7 @@ const Nav = () => {
     <Navbar background={colors.black} logoBackground={colors.brown}>
         <div className='nav-container'>
             <Link href="/">
-                <a>Homelands</a>
+                <a className='logo'>Homelands</a>
             </Link> 
             <section>
                 <ActiveLink href="/">

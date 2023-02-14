@@ -50,7 +50,7 @@ const Home = () => {
     fetchReviews("https://api.mediehuset.net/homelands/reviews")
     fetchEmployees("https://api.mediehuset.net/homelands/staff")
   }, [])
-  console.log(employees)
+  
   return (
     <>
       <Header>
