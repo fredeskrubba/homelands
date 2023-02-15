@@ -35,6 +35,9 @@ const Reviews = ({title, mainText, author, date}) => {
             <p>{author},</p>
             <p>{date}</p>
         </div>
+        <div>
+            
+        </div>
     </ReviewContainer>
   )
 }
