@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGlobalStore } from '../stores/globalStore'
+import { useReviewStore} from "../stores/reviewStore"
+import { useEffect } from 'react'
+import { useLoginStore } from '../stores/loginStore'
+import { useLocation } from 'wouter'
 
 const AdminContainer = styled.main`
     margin-top: 10vw;
@@ -10,6 +14,7 @@ const AdminContainer = styled.main`
         grid-template-columns: 2fr 1fr;
         height: 100%;
         .review-container{
+            height: 100%;
             .info-bar{
                 display: flex;
                 justify-content: space-between;
@@ -22,7 +27,7 @@ const AdminContainer = styled.main`
         }
         .logout-container{
             border-left: 1px solid black;
-            height: 25vw;
+            height: 100%;
             margin-left: 2vw;
             padding-left: 2vw;
             button{
@@ -55,7 +60,18 @@ const ReviewBar = styled.div`
     }
 `
 const Admin = () => {
-    const colors = useGlobalStore((state)=> state.colors)  
+    const colors = useGlobalStore((state)=> state.colors)
+    const reviews = useReviewStore((state)=> state.reviews)
+    const fetchReviews = useReviewStore((state)=> state.fetchReviews)
+    const deleteReview = useReviewStore((state)=> state.deleteReview)
+    const token = useLoginStore((state)=> state.token)
+    const fetchLogin = useLoginStore((state)=> state.fetchLogin)
+    const resetToken = useLoginStore((state) => state.resetToken)
+    const [location, setLocation] = useLocation();
+    useEffect(()=>{
+        fetchReviews("https://api.mediehuset.net/homelands/reviews")
+        fetchLogin("https://api.mediehuset.net/token", "fres", "frederik")
+    }, [])  
   return (
     <AdminContainer btnBackground={colors.black}>
         <h1>Administration</h1>
@@ -67,18 +83,27 @@ const Admin = () => {
                     <p className='date'>Dato</p>
                     <p>Handling</p>
                 </div>
-                <ReviewBar>
-                    <p>Dejligt Køb</p>
-                    <p>8. september 2021</p>
-                    <div className='review-buttons'>
-                        <button className='edit'>Rediger</button>
-                        <button className='delete'>Slet</button>
-                    </div>
-                </ReviewBar>
+                
+                {reviews !== "" ? 
+                    reviews.items.map((review)=>{
+                        return <ReviewBar>
+                                    <p>{review.title}</p>
+                                    <p>{review.created_friendly}</p>
+                                    <div className='review-buttons'>
+                                        <button className='edit'>Rediger</button>
+                                        <button className='delete' onClick={()=>{deleteReview("https://api.mediehuset.net/homelands/reviews", `/${review.id}`, token.access_token)}}>Slet</button>
+                                    </div>
+                                </ReviewBar>
+                    })
+      : null
+      }
             </div>
             <div className="logout-container">
                 <p>Du er logget ind som admin</p>
-                <button>logout</button>
+                <button onClick={()=> {
+                    resetToken()
+                    setLocation("/login")
+                }}>logout</button>   
             </div>
         </section>
     </AdminContainer>

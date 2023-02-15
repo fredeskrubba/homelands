@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGlobalStore } from '../stores/globalStore'
-
+import {useLoginStore} from "../stores/loginStore"
+import { useEffect } from 'react'
+import { useState } from 'react'
+import {useLocation } from 'wouter'
 
 const LoginCont = styled.main`
   margin-top: 10vw;
@@ -43,17 +46,28 @@ const LoginCont = styled.main`
 
 const Login = () => {
 const colors = useGlobalStore((state)=> state.colors)  
+const token = useLoginStore((state)=> state.token)
+const fetchLogin = useLoginStore((state)=> state.fetchLogin)   
+const [username, setUsername] = useState("")
+const [password, setPassword] = useState("")
+const [location, setLocation] = useLocation();
 
+  useEffect(()=>{
+    if(token.status === "Ok"){
+      setLocation("/login/admin")
+    }
+  }, [token])
+  
   return (
     <LoginCont btnBackground={colors.black}>
       <h1>Login</h1>
       <p>Indtast dit brugernavn og adgangskode for at logge ind</p>
       <section className='form'>
-        <input type="text" placeholder='Brugernavn'/>
-        <input type="text" placeholder='Adgangskode'/>
+        <input type="text" placeholder='Brugernavn' onChange={(e)=>setUsername(e.target.value)}/>
+        <input type="text" placeholder='Adgangskode' onChange={(e)=>setPassword(e.target.value)}/>
       </section>
       <section className='buttons'>
-        <button>Login</button>
+        <button onClick={()=>{fetchLogin("https://api.mediehuset.net/token", username, password)}}>Login</button>
         <button>Annuller</button>
       </section>
     </LoginCont>

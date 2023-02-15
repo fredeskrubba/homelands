@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import HouseCard from "../components/HouseCard"
 import { useHousesStore } from '../stores/housesStore'
 import { useEffect } from 'react'
+import {useGlobalStore} from "../stores/globalStore"
 
 const ListingContainer = styled.main`
     margin-top: 10vw;
@@ -18,6 +19,9 @@ const ListingContainer = styled.main`
         gap: 2vw;
         select{
           padding: 0.5vw 6vw 0.5vw 0.5vw;
+        }
+        .price-slider{
+          accent-color: ${props => props.sliderColor};
         }
     }
   }
@@ -37,19 +41,19 @@ const ListingContainer = styled.main`
 const Listings = () => {
   const houses = useHousesStore((state)=> state.houses)
   const fetchHouses = useHousesStore((state)=> state.fetchHouses)
-
+  const colors = useGlobalStore(state => state.colors)
   useEffect(()=>{
     fetchHouses("https://api.mediehuset.net/homelands/homes")
   }, [])
 
-  console.log(houses)
+  
   return (
-    <ListingContainer>
+    <ListingContainer sliderColor={colors.brown}>
       <section className="upper-section">
         <h1>Boliger til salg</h1>
         <div>
           <p>Sorter efter prisniveau</p>
-          <input type="range" />
+          <input type="range" className='price-slider'/>
           <select>
             <option>Sorter efter type</option>
           </select>
