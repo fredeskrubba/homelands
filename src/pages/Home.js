@@ -8,6 +8,9 @@ import Reviews from '../components/Reviews'
 import { useReviewStore } from '../stores/reviewStore'
 import Employees from '../components/Employees'
 import { useEmployeeStore } from '../stores/employeeStore'
+import {ReactComponent as ArrowLeft} from "../assets/icons/arrow-left.svg"
+import {ReactComponent as ArrowRight} from "../assets/icons/arrow-right.svg"
+import { useState } from 'react'
 
 const Header = styled.header`
   margin-top: 3vw;
@@ -18,6 +21,16 @@ const Header = styled.header`
     width: 100%;
     height: 40vw;
     object-fit: cover;
+  }
+  .arrow-right{
+    position: absolute;
+    top: 20vw;
+    right: 5vw;
+  }
+  .arrow-left{
+    position: absolute;
+    top: 20vw;
+    left: 5vw;
   }
 `
 
@@ -51,11 +64,19 @@ const Home = () => {
     fetchEmployees("https://api.mediehuset.net/homelands/staff")
   }, [])
   
+  const [imgBanner, setImgBanner] = useState("")
+  useEffect(()=>{
+    return setImgBanner(images !== "" ? images.items[8].image[0] : "")
+  }, [images])
   return (
     <>
-      <Header>
-        {images !== "" ? <img src={images.items[8].image[0]} alt=""/> : null}
-      </Header>
+        {images !== "" ? 
+          <Header>
+            <img src={imgBanner} alt=""/>
+            <ArrowLeft className='arrow-left' onClick={()=>{setImgBanner(images.items[8].image[0])}}/>
+            <ArrowRight className='arrow-right' onClick={()=>{setImgBanner(images.items[4].image[0])}}/>
+          </Header>
+          : null}
       <HomeSection>
         {houses !== "" ? houses.items.slice(0,3).map((house)=>{
           return <HouseCard img={house.images[0].filename.medium} alt={house.images[0].description} price={house.price} city={house.city} zip={house.zipcode} type={house.type} rooms={house.num_rooms} address={house.address} size={house.floor_space} />

@@ -9,6 +9,12 @@ const Card = styled.article`
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-color: #fffa;
+    &:hover{
+        background-color: #d002;
+        cursor: pointer;
+        transform: scale(1.1); 
+        transition: 200ms;
+    }
     p{
         margin: 0;
     }
