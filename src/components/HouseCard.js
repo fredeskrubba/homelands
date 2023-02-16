@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {ReactComponent as HeartIcon} from "../assets/icons/heart-icon.svg"
-
+import { Link } from 'wouter'
 
 const Card = styled.article`
     border: 1px solid black;
@@ -46,7 +46,9 @@ const Card = styled.article`
 const HouseCard = ({img, alt, price, city, zip, type, rooms, address, size, likeable}) => {
   return (
     <Card>
-        <img src={img} alt={alt} />
+        <Link href='/listings/house'>
+            <img src={img} alt={alt} />
+        </Link>
         <div className="upper-info">
             <h2>{address}</h2>
             {likeable && <HeartIcon/>}
